@@ -32,6 +32,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.get('/',(req,res)=>{res.send("welcome")})
 
 console.log("Loaded ENV Variables:", process.env);
 console.log("MongoDB URI:", process.env.MONGO_URI);
