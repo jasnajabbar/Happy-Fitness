@@ -18,5 +18,8 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/", // Ensure correct base URL
+  root: ".", // Ensure Vite knows where `index.html` is
+  build: {
+    outDir: "dist",
+  },
 });
