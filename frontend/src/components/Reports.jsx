@@ -44,7 +44,7 @@ const WeightReport = () => {
                 return;
             }
 
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/weighthistory/${username}`);
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/weighthistory/${username}`.replace(/([^:]\/)\/+/g, "$1"));
             const weightEntries=response.data.data;
 
             console.log("API Response:", weightEntries);

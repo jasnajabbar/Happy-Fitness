@@ -19,7 +19,7 @@ function ReportPage() {
             }
 
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${storedUsername}`, {
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${storedUsername}`.replace(/([^:]\/)\/+/g, "$1"), {
                     headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}, // Send token if required
                     withCredentials:true
                 });

@@ -12,7 +12,7 @@ function TrainerAppointments() {
   useEffect(() => {
     const fetchAppointments =async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/getappointments`);
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/getappointments`.replace(/([^:]\/)\/+/g, "$1"));
         console.log("Get Fetched appointments:", response.data); 
         setAppointments(response.data);
       } catch (error) {
@@ -28,7 +28,7 @@ function TrainerAppointments() {
   // Handle approval or rejection
   const handleAction = async(username,status) => {
     try {
-      const response = await axios.put(`${import.meta.env.VITE_SERVER_URL}/myfitness/updateappointment`, {username,status});
+      const response = await axios.put(`${import.meta.env.VITE_SERVER_URL}/myfitness/updateappointment`.replace(/([^:]\/)\/+/g, "$1"), {username,status});
       
       setAppointments((prev) =>
         prev.map((appointment) =>

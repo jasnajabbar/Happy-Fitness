@@ -31,7 +31,7 @@ function DailyWeight(){
             }
 
         try {
-            const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/weightlog`,{
+            const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/weightlog`.replace(/([^:]\/)\/+/g, "$1"),{
                 username:username.trim(),
                 weight:parseFloat(weight),
             },

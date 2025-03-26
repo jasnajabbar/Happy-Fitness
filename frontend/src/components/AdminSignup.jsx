@@ -23,7 +23,7 @@ function AdminSignup() {
 
     try {
       const response =await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/myfitness/admin/signup`,
+        `${import.meta.env.VITE_SERVER_URL}/myfitness/admin/signup`.replace(/([^:]\/)\/+/g, "$1"),
         adminData,  
         {
           withCredentials: true,

@@ -12,7 +12,7 @@ function TrainerDashboard() {
   useEffect(() => {
     const fetchUsers =async () => {
       try {
-        const response =await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/users`, {
+        const response =await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/users`.replace(/([^:]\/)\/+/g, "$1"), {
            
             withCredentials: true, // If backend expects cookies too
           });

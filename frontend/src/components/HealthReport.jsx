@@ -40,7 +40,7 @@ function HeathReport() {
         return;
     }
     try {
-        const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/healthreport`,formData,{withCredentials:true})
+        const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/healthreport`.replace(/([^:]\/)\/+/g, "$1"),formData,{withCredentials:true})
         
 
         if(response.status===200){
@@ -48,7 +48,7 @@ function HeathReport() {
 
             localStorage.setItem('token', response.data.token);
             
-            const userResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${formData.username}`,
+            const userResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${formData.username}`.replace(/([^:]\/)\/+/g, "$1"),
             {headers: {
                 Authorization: `Bearer ${response.data.token}`, // Sending token with request
             },

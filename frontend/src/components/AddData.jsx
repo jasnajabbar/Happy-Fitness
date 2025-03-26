@@ -46,7 +46,7 @@ function AdminPanel() {
     console.log("Trainer Data being sent:",trainerData);
 
     try {
-      const response =await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/addtrainer`,trainerData, {
+      const response =await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/addtrainer`.replace(/([^:]\/)\/+/g, "$1"),trainerData, {
         withCredentials: true,
       });
 
@@ -69,7 +69,7 @@ function AdminPanel() {
     console.log("Client Data being sent:",clientData);
 
     try {
-      const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,clientData,{
+      const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`.replace(/([^:]\/)\/+/g, "$1"),clientData,{
         withCredentials: true,
       });
 
