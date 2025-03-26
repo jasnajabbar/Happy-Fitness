@@ -18,7 +18,7 @@ function LoginPage() {
     console.log(loginData);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/login`, loginData,{
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/login`.replace(/([^:]\/)\/+/g, "$1"), loginData,{
         withCredentials:true,
       });
 
