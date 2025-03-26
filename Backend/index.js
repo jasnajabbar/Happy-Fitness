@@ -20,18 +20,21 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 
 //enable CORS to allow your frontend to connect to the backend
 const corsOptions = {
-  origin: function (origin,callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {  // Fix: Use includes()
       callback(null, true);
     } else {
+      console.error("Blocked by CORS:", origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Allow cookies
+  allowedHeaders: "Content-Type,Authorization", // Ensure preflight requests allow required headers
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); 
 app.get('/',(req,res)=>{res.send("welcome")})
 
 console.log("Loaded ENV Variables:", process.env);
