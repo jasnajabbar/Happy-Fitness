@@ -19,25 +19,28 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
   : ['http://localhost:5173'];
 
 //enable CORS to allow your frontend to connect to the backend
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log("Request Origin:", origin);
-    if (!origin || allowedOrigins.includes(origin)) {  // Fix: Use includes()
-      callback(null, true);
-    } else {
-      console.error("Blocked by CORS:", origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
-  credentials: true, // Allow cookies
-  allowedHeaders: ["Content-Type,Authorization"], // Ensure preflight requests allow required headers
-};
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     console.log("Request Origin:", origin);
+//     if (!origin || allowedOrigins.includes(origin)) {  // Fix: Use includes()
+//       callback(null, true);
+//     } else {
+//       console.error("Blocked by CORS:", origin);
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+//   credentials: true, // Allow cookies
+//   allowedHeaders: ["Content-Type,Authorization"], // Ensure preflight requests allow required headers
+// };
 
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: ['http://localhost:5173/', 'https://happy-fitness-fe.vercel.app'],
+  credentials: true
+}));
 
 // Handle preflight OPTIONS requests
-app.options('*', cors(corsOptions));
+// app.options('*', cors(corsOptions));
 app.get('/',(req,res)=>{res.send("welcome")})
 
 console.log("Loaded ENV Variables:", process.env);
