@@ -37,38 +37,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Handle preflight OPTIONS requests
-app.options('*', (req, res) => {
-  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.sendStatus(200);
-});
+app.options('*', cors(corsOptions));
 app.get('/',(req,res)=>{res.send("welcome")})
 
-console.log("Loaded ENV Variables:", {
-  ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
-  MONGO_URI: process.env.MONGO_URI,
-  PORT: process.env.PORT,
-});
+console.log("Loaded ENV Variables:", process.env);
+console.log("MongoDB URI:", process.env.MONGO_URI);
+connectDB();
 
 app.use('/myfitness',fitnessroutes);
-
-// Global Error Handling
-app.use((err, req, res, next) => {
-  console.error("Server Error:", err);
-  res.status(500).json({ message: "Internal Server Error", error: err.message });
-});
-
-// Start Server After DB Connection
-connectDB()
-  .then(() => {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("MongoDB Connection Failed:", err);
-    process.exit(1);
-  });
+const PORT=process.env.PORT || 3000;
+app.listen(PORT,()=>{
+  console.log(`server is running on ${PORT}`)
+}); 
