@@ -10,6 +10,11 @@ const fitnessroutes=require('./src/routes/fitnessroutes');
 
 const app=express();
 
+//Setup CORS using ALLOWED_ORIGINS from the environment variables
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : ['http://localhost:5173'];
+
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like curl or Postman)
@@ -33,10 +38,6 @@ app.options('*', cors(corsOptions)); // Preflight
 app.use(bodyParser.json()); //middleware that only parses JSON
 app.use(cookieParser());
 
-//Setup CORS using ALLOWED_ORIGINS from the environment variables
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:5173'];
 
 //enable CORS to allow your frontend to connect to the backend
 // const corsOptions = {
