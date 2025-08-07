@@ -56,7 +56,11 @@ console.log("MongoDB URI:", process.env.MONGO_URI);
 connectDB();
 
 app.use('/myfitness',fitnessroutes);
-const PORT=process.env.PORT || 3000;
-app.listen(PORT,()=>{
-  console.log(`server is running on ${PORT}`)
-}); 
+// const PORT=process.env.PORT || 3000;
+// app.listen(PORT,()=>{
+//   console.log(`server is running on ${PORT}`)
+// }); 
+//  DO NOT use app.listen on Vercel
+//  Instead, export app
+
+module.exports = app;
