@@ -18,8 +18,13 @@ function LoginPage() {
     console.log(loginData);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/login`.replace(/([^:]\/)\/+/g, "$1"), loginData,{
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/login`, 
+        loginData,
+      {
         withCredentials:true,
+        headers: {
+          'Content-Type': 'application/json',
+      }
       });
 
       console.log("Response from backend:", response.data);
@@ -93,7 +98,7 @@ function LoginPage() {
           >
             <option>Admin</option>
             <option>Trainer</option>
-            <option>Client</option>
+            <option>client</option>
           </Form.Select>
         </Form.Group>
 

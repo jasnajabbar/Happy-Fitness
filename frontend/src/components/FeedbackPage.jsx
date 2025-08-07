@@ -25,7 +25,13 @@ function FeedbackPage() {
                 username: localStorage.getItem('username'),
                 rating,
                 description
-            });
+            },
+            {
+            withCredentials:true,
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
 
             if (response.status === 200) {
                 setMessage("Feedback submitted successfully!");

@@ -47,7 +47,10 @@ function AdminPanel() {
 
     try {
       const response =await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/addtrainer`.replace(/([^:]\/)\/+/g, "$1"),trainerData, {
-        withCredentials: true,
+        withCredentials:true,
+        headers: {
+          'Content-Type': 'application/json',
+      }
       });
 
       console.log("Server Response:", response);
@@ -69,8 +72,11 @@ function AdminPanel() {
     console.log("Client Data being sent:",clientData);
 
     try {
-      const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`.replace(/([^:]\/)\/+/g, "$1"),clientData,{
-        withCredentials: true,
+      const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,clientData,{
+        withCredentials:true,
+        headers: {
+          'Content-Type': 'application/json',
+      }
       });
 
       if (response.status===201 || response.status === 200) {

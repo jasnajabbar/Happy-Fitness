@@ -44,7 +44,7 @@ const WeightReport = () => {
                 return;
             }
 
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/weighthistory/${username}`.replace(/([^:]\/)\/+/g, "$1"));
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/weighthistory/${username}`);
             const weightEntries=response.data.data;
 
             console.log("API Response:", weightEntries);
@@ -56,8 +56,14 @@ const WeightReport = () => {
             //sort by date
             weightEntries.sort((a,b)=>new Date(a.date)-new Date(b.date))
 
-            const dates =weightEntries.map(entry =>new Date(entry.date).toLocaleDateString());
-            const weights =weightEntries.map(entry =>entry.weight);
+            const dates = weightEntries.map(entry => {
+              console.log("Processing Entry:", entry);
+              return entry.date ? new Date(entry.date).toLocaleDateString() : "Invalid Date";
+            });
+            const weights = weightEntries.map(entry => {
+              console.log("Processing Weight:", entry.weight);
+              return entry.weight || 0;
+            });
 
             setChartData(previousData=>({
                 ...previousData,
@@ -72,10 +78,11 @@ const WeightReport = () => {
         } catch (error) {
             console.error('Error fetching weight data:', error);
         }
-    },[username])
+    },[username]);
+
     useEffect(() => {
         fetchWeightData();
-      }, [fetchWeightData,location.state]); //re-fetch when navigating with `state`
+      }, [fetchWeightData,location.state]); //re-fetch when navigating with state
     
    
   return (
@@ -94,5 +101,4 @@ const WeightReport = () => {
     </div>
   );
 };
-
 export default WeightReport;

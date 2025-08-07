@@ -35,19 +35,22 @@ function DailyWeight(){
                 username:username.trim(),
                 weight:parseFloat(weight),
             },
-                {withCredentials: true} 
+                {
+                  withCredentials:true,
+                  headers: {
+                    'Content-Type': 'application/json',
+                }
+                } 
             );
             console.log("Response from API:", response.data);
 
-            if (response.data?.message?.toLowerCase().includes("weight logged")) {
+            if (response.data?.success) {
                 setMessage('Weight logged successfully!');
                 setWeight('');
 
                 localStorage.setItem("username", username.trim());
-                console.log('username:',username)
-                setTimeout(() => {
-                    navigate("/reports",{state:{refresh:true}}) //update report data each time   
-                  }, 1500);
+                console.log('Navigating to reports...');
+                navigate("/reports", { state: { refresh: true } }); 
               }
         } catch (err) {
             console.error('Failed to log weight:',err);

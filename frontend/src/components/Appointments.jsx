@@ -24,7 +24,7 @@ function BookAppointment() {
   useEffect(() => {
     const fetchTrainers =async() => {
       try {
-        const response =await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/gettrainers`.replace(/([^:]\/)\/+/g, "$1"));
+        const response =await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/trainers`.replace(/([^:]\/)\/+/g, "$1"));
         console.log("fetched appointments:",response.data)
         setTrainers(response.data);
       } catch (error) {
@@ -39,7 +39,7 @@ function BookAppointment() {
     if (!username) return;
 
     try {
-      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/appointments/${username}`.replace(/([^:]\/)\/+/g, "$1"));
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/appointments/${username}`);
       console.log("Fetched appointment data:", response.data);
 
       if (response.data) {
@@ -73,11 +73,16 @@ function BookAppointment() {
     setError("");
 
     try {
-      const response =await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/bookappointment`.replace(/([^:]\/)\/+/g, "$1"), {
+      const response =await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/bookappointment`, {
         username,
         trainerName,
         date,
         slot,
+      }, {
+        withCredentials:true,
+        headers: {
+          'Content-Type': 'application/json',
+      }
       });
 
       setMessage(response.data.message);
