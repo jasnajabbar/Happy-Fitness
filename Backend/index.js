@@ -7,7 +7,14 @@ const jwt=require('jsonwebtoken');
 const connectDB=require('./src/config/db');
 const fitnessroutes=require('./src/routes/fitnessroutes');
 
+
 const app=express();
+
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://happy-fitness-fe.vercel.app'],
+  credentials: true
+}));
+app.options('*', cors()); 
 
 //middleware
 app.use(bodyParser.json()); //middleware that only parses JSON
@@ -34,10 +41,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 //   allowedHeaders: ["Content-Type,Authorization"], // Ensure preflight requests allow required headers
 // };
 
-app.use(cors({
-  origin: ['http://localhost:5173/', 'https://happy-fitness-fe.vercel.app'],
-  credentials: true
-}));
+
 
 // Handle preflight OPTIONS requests
 // app.options('*', cors(corsOptions));

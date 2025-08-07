@@ -3,9 +3,9 @@ const masterSchema=require('./fitnessmastermodel')
 
 const feedbackSchema=new mongoose.Schema({
     ...masterSchema.obj, 
-    clientid:{type:Number,required:true,unique:true},
-    email:{type:String,required:true},
-    password:{type:String,required:true},
+    username: { type: String, required: true },  
+    rating: { type: Number, required: true },  
+    description: { type: String }, 
 })
 
 module.exports=mongoose.model('Feedback',feedbackSchema)

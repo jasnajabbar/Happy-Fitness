@@ -6,6 +6,7 @@ const {listAllUser,listAllTrainer}=require('../controller/listcontroller')
 const {deleteUser,deleteTrainer}=require('../controller/deletecontroller')
 const {weightLog,setGoals,updateGoals,weightProgress,weightHistory,weightAnalysis}=require('../controller/weightcontroller');
 const router=express.Router(); // Initialize the router
+const {userFeedback}=require('../controller/feedbackcontroller')
 const {authUser}=require('../middleware/fitnessmiddleware')
 
 
@@ -30,9 +31,6 @@ router.get('/trainers',listAllTrainer);//
 router.delete('/user/:username',authUser,deleteUser)
 router.delete('/trainer/:username',authUser,deleteTrainer)
 
-// router.post('/upload-profile-pic',authUser,upload.single("profileImage"),uploadProfileImage);
-// router.get('/viewprofile',authUser,viewProfile);
-// router.get('/updateprofile',authUser,updateProfile);
 
 router.post('/weightlog',weightLog); //daily weight
 router.post('/setgoals',setGoals);
@@ -43,5 +41,7 @@ router.get('/weightanalysis/:username',weightAnalysis);
 // router.put('/assigntrainer',assignTrainer);
 // router.post('/payment',authUser,payment)
 // router.post('/ackpayment',authUser,ackPayment);
+
+router.post('/feedback',userFeedback)
 
 module.exports=router;
