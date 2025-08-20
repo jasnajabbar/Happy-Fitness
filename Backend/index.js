@@ -8,40 +8,56 @@ const fitnessroutes = require('./src/routes/fitnessroutes');
 
 const app = express();
 
-// CORS
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://happy-fitness-fe.vercel.app'
-];
+/**
+ * ✅ Load allowed origins from .env (comma separated)
+ * Example in .env:
+ * ALLOWED_ORIGINS=https://happy-fitness-fe.vercel.app,http://localhost:5173
+ */
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
+  : [];
 
-app.use(cors({
+/**
+ * ✅ CORS configuration
+ */
+const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error('❌ Blocked by CORS:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true,
-}));
+  credentials: true, // allow cookies (important!)
+};
 
-// Handle preflight globally
-app.options('*', cors());
+// ✅ Apply CORS before all routes/middleware
+app.use(cors(corsOptions));
 
-// Middleware
+// ✅ Handle preflight requests globally
+app.options('*', cors(corsOptions));
+
+/**
+ * Middleware
+ */
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// Root route
+/**
+ * Routes
+ */
 app.get('/', (req, res) => {
-  res.send("Welcome to Happy Fitness API 🚀");
+  res.send('Welcome to Happy Fitness API 🚀');
 });
 
-// DB + Routes
 connectDB();
+
 app.use('/myfitness', fitnessroutes);
 
-// Export for Vercel
+/**
+ * 🚀 Export app for Vercel (no app.listen here!)
+ */
 module.exports = app;
 
 // require('dotenv').config();
