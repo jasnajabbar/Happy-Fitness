@@ -57,7 +57,7 @@ function PersonalDetails() {
     console.log("Submitting Data:", clientData);
 
     try {
-      const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}myfitness/signup`,clientData,{
+      const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/signup`,clientData,{
         withCredentials:true
       //   headers: {
       //     'Content-Type': 'application/json',
