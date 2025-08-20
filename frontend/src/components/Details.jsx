@@ -58,11 +58,13 @@ function PersonalDetails() {
 
     try {
       const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}myfitness/signup`,clientData,{
-        withCredentials:true,
-        headers: {
-          'Content-Type': 'application/json',
-      }
+        withCredentials:true
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      // }       
       });
+      console.log(('response data',response))
+
 
       if (response.status===201 || response.status === 200) {
         setSuccess(response.data.message); // Display success message
