@@ -29,7 +29,7 @@ exports.createUser=async(req,res)=>{
         )
         //to keep token in cookie, cookie will be in response obj
         res.cookie('token',token,{httpOnly:true})
-        res.json({message:'User Created Successfully',token})
+        res.status(201).json({message:'User Created Successfully',token})
     }
      catch (error) {
         console.error('Error connecting to Mongoose: ', error.message)     
