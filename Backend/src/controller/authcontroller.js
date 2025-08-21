@@ -7,6 +7,7 @@ const {Admin}=require('../model/adminmodel')
 
 //createuser
 exports.createUser=async(req,res)=>{
+    console.log('data check');
     try {
         const{firstname,username,email,password,usertype,startweight,goal,weight,height,gender}=req.body;
         const hashedpassword=await bcrypt.hash(password,10);

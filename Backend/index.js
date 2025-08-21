@@ -1,3 +1,16 @@
+// const express = require('express');
+// const cors = require('cors');
+
+// const app = express();
+
+// app.use(cors({ origin: true, credentials: true }));
+
+// app.get('/', (req, res) => {
+//   res.send('✅ Vercel server is working');
+// });
+
+// module.exports = app;
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -9,7 +22,7 @@ const fitnessroutes = require('./src/routes/fitnessroutes');
 const app = express();
 
 /**
- * ✅ Load allowed origins from .env (comma separated)
+ * ✅ Allowed origins from .env
  * Example in .env:
  * ALLOWED_ORIGINS=https://happy-fitness-fe.vercel.app,http://localhost:5173
  */
@@ -29,23 +42,21 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true, // allow cookies (important!)
+  credentials: true,
 };
 
 // ✅ Apply CORS before all routes/middleware
 app.use(cors(corsOptions));
-
-// ✅ Handle preflight requests globally
 app.options('*', cors(corsOptions));
 
 /**
- * Middleware
+ * ✅ Middleware
  */
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 /**
- * Routes
+ * ✅ Routes
  */
 app.get('/', (req, res) => {
   res.send('Welcome to Happy Fitness API 🚀');
@@ -56,7 +67,18 @@ connectDB();
 app.use('/myfitness', fitnessroutes);
 
 /**
- * 🚀 Export app for Vercel (no app.listen here!)
+ * ✅ Global error handler (so Vercel doesn’t crash silently)
+ */
+app.use((err, req, res, next) => {
+  console.error("🔥 Unhandled Express error:", err);
+  res.status(500).json({
+    message: "Internal Server Error",
+    error: err.message || "Unknown error"
+  });
+});
+
+/**
+ * 🚀 Export app for Vercel
  */
 module.exports = app;
 
