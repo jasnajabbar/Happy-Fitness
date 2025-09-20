@@ -40,7 +40,7 @@
     "@rollup/rollup-linux-x64-gnu": "^4.34.9"
   },
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "main": "vite.config.js",
   "author": "",
