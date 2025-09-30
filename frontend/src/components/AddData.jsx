@@ -95,9 +95,8 @@ function AdminPanel() {
             assignedTrainer:'',
             usertype:'client'
         }); // Clear form
-        alert("Client Created Successfully!");
-
       }
+      alert("Client Created Successfully!");
     } catch (err) {
       setError(err.response ?err.response.data.message:'Error adding client');
     }

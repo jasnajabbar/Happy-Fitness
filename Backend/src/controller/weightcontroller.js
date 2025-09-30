@@ -77,10 +77,10 @@ exports.updateGoals =async(req,res) => {
 exports.weightProgress = async(req,res) => {
     try {
         const {username} =req.params;
-        const user = await User.findOne({username });
+        const user = await User.findOne({username});
 
         if (!user) {
-            return res.status(404).json({success: false,message: 'User not found' });
+            return res.status(404).json({success: false,message: 'User not found'});
         }
 
         const latestWeightLog = await WeightLog.findOne({username:username}).sort({date: -1});
@@ -91,8 +91,8 @@ exports.weightProgress = async(req,res) => {
 
         const progress = ((user.startweight - latestWeightLog.weight) / user.startweight) *100;  // Calculate progress in percentage
         res.status(200).json({
-            success: true,
-            message: 'Weight progress fetched successfully',
+            success:true,
+            message:'Weight progress fetched successfully',
             data: {progress: progress.toFixed(2)},  // Return progress in percentage
         });
     } catch (error) {

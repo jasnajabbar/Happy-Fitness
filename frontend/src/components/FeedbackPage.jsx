@@ -39,18 +39,18 @@ function FeedbackPage() {
             }
         } catch (error) {
             setMessage("Failed to submit feedback.");
-            console.error("Feedback Error:", error);
+            console.error("Feedback Error:",error);
         }
     };
 
     return (
-        <div style={{textAlign:'center',padding:'20px',minHeight:'100vh' }}>
+        <div style={{textAlign:'center',padding:'20px',minHeight:'100vh'}}>
             <h2>Feedback</h2>
 
             {/* Star Rating */}
-            <div style={{marginBottom:'20px' }}>
-                {[...Array(5)].map((star, index) => {
-                    const currentRating = index + 1;
+            <div style={{marginBottom:'20px'}}>
+                {[...Array(5)].map((star,index) => {
+                    const currentRating =index+1;
 
                     return (
                         <label key={index}>
@@ -63,7 +63,7 @@ function FeedbackPage() {
                             />
                             <FaStar
                                 size={30}
-                                color={currentRating <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                color={currentRating <= (hover || rating) ? "#ffc107":"#e4e5e9"}
                                 onMouseEnter={() => setHover(currentRating)}
                                 onMouseLeave={() => setHover(null)}
                                 style={{ cursor: "pointer" }}
@@ -74,7 +74,7 @@ function FeedbackPage() {
             </div>
 
             {/* Description (Optional) */}
-            <Form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: 'auto' }}>
+            <Form onSubmit={handleSubmit} style={{maxWidth:'400px',margin:'auto'}}>
                 <Form.Group className="mb-3">
                     <Form.Label>Comments (Optional)</Form.Label>
                     <Form.Control
@@ -82,12 +82,12 @@ function FeedbackPage() {
                         rows={3}
                         placeholder="Share your experience..."
                         value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        onChange={(e) =>setDescription(e.target.value)}
                     />
                 </Form.Group>
 
                 <Button variant="primary" type="submit">Submit</Button>
-                {message && <p style={{ marginTop: '10px', color: 'green' }}>{message}</p>}
+                {message && <p style={{marginTop:'10px',color:'green'}}>{message}</p>}
             </Form>
         </div>
     );

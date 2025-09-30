@@ -34,7 +34,7 @@ exports.signupAdmin=async(req,res) => {
         await newAdmin.save();
         res.status(201).json({message: "Admin registered successfully"});
     } catch (error) {
-        res.status(500).json({error: "Internal Server Error" , message:error.message});
+        res.status(500).json({error: "Internal Server Error" ,message:error.message});
     }
 };
 
@@ -47,9 +47,9 @@ exports.addTrainer=async(req,res)=>{
             return res.status(400).json({error: "Invalid user type"})
         }
 
-        const client = await User.findOne({username:assignedClient });
+        const client = await User.findOne({username:assignedClient});
         if (!client) {
-            return res.status(400).json({ error: "Client not found" });
+            return res.status(400).json({ error: "Client not found"});
         }
 
         const hashpassword=await bcrypt.hash(password,10); //await only in async function

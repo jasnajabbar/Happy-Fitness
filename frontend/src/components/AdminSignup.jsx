@@ -62,7 +62,7 @@ function AdminSignup() {
           type="text"
           placeholder="Enter username"
           value={adminData.username}
-          onChange={(e) => setAdminData({ ...adminData,username: e.target.value})}
+          onChange={(e) => setAdminData({ ...adminData,username:e.target.value})}
         />
       </Form.Group>
 
@@ -72,27 +72,27 @@ function AdminSignup() {
           type="email"
           placeholder="Enter email"
           value={adminData.email}
-          onChange={(e) => setAdminData({ ...adminData, email: e.target.value })}
+          onChange={(e) => setAdminData({...adminData,email:e.target.value})}
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" style={{ marginLeft: '10px', marginRight: '10px' }}>
+      <Form.Group className="mb-3" style={{marginLeft:'10px',marginRight:'10px'}}>
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
           placeholder="Enter password"
           value={adminData.password}
-          onChange={(e) => setAdminData({ ...adminData, password: e.target.value })}
+          onChange={(e) => setAdminData({ ...adminData,password:e.target.value})}
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" style={{ marginLeft: '10px', marginRight: '10px' }}>
+      <Form.Group className="mb-3" style={{marginLeft: '10px',marginRight:'10px'}}>
         <Form.Label>Usertype</Form.Label>
         <Form.Control placeholder="Admin" disabled />
       </Form.Group>
 
       <div>
-      <Button variant="primary" type="submit" style={{ marginLeft: '10px', marginRight: '10px' }}>
+      <Button variant="primary" type="submit" style={{marginLeft:'10px',marginRight:'10px'}}>
         Signup
       </Button>
       </div>

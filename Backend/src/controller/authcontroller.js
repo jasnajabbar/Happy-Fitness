@@ -1,8 +1,8 @@
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const {User}=require('../model/usermodel');
-const {Trainer}=require('../model/trainermodel')
-const {Admin}=require('../model/adminmodel')
+const Trainer=require('../model/trainermodel')
+const Admin=require('../model/adminmodel')
 
 
 //createuser
@@ -33,52 +33,65 @@ exports.createUser=async(req,res)=>{
         res.status(201).json({message:'User Created Successfully',token})
     }
      catch (error) {
-        console.error('Error connecting to Mongoose: ', error.message)     
+        console.error('Error connecting to Mongoose: ',error.message)     
     }
 }
 
 //login user
-exports.loginUser=async(req,res)=>{
+exports.loginUser = async(req,res) => {
     try {
-        const {email,password,usertype}=req.body;
+        console.log("Login request body:", req.body);
+
+        const {email,password,usertype} = req.body;
+        const normalizedUsertype =usertype.trim().toLowerCase();
+
+        console.log("Normalized usertype:", normalizedUsertype);
 
         let user;
-        if(usertype=='admin'){
+        if (normalizedUsertype === 'admin') {
             user=await Admin.findOne({email});
-        }
-        else if(usertype=='trainer'){
+        } else if (normalizedUsertype === 'trainer') {
             user=await Trainer.findOne({email});
-        }
-        else{
+        } else {
             user=await User.findOne({email});
         }
-        if(!user){
-            return res.status(404).json({message:'Invalid Email'})
+
+        console.log("User found:", user);
+
+        if (!user) {
+            return res.status(404).json({message:'Invalid Email'});
         }
-        //password check
-        const isMatch=await bcrypt.compare(password,user.password);
-        if(!isMatch){
-            return res.status(400).json({message:'Invalid Password'})
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({message:'Invalid Password'});
         }
-        //usertype match
-        if(user.usertype!==usertype){
+
+        if (user.usertype.toLowerCase() !== normalizedUsertype) {
             return res.status(403).json({message:'Unauthorized Access'});
         }
-        //create token
-        const token=jwt.sign({
-            id:user._id,
+
+        const token = jwt.sign(
+            {id: user._id, username: user.username, usertype: user.usertype},
+            process.env.SECRET_KEY
+        );
+
+        res.cookie('token',token,{httpOnly: true});
+
+        return res.json({
+            message:'Login Successfull',
+            token,
             username:user.username,
             usertype:user.usertype
-        },process.env.SECRET_KEY);
-        
-        res.cookie('token',token,{httpOnly:true})
-        res.json({message:'Login Successfull',token,
-            usertype:user.usertype //for front end navigation
-        })
+        });
+
     } catch (error) {
-        res.status(500).json({message:error.message})
+        console.error("Login error:", error);
+        return res.status(500).json({message:error.message});
     }
-}
+};
+
+  
 //get user
 exports.getUser=async(req,res)=>{
     try{
@@ -86,8 +99,8 @@ exports.getUser=async(req,res)=>{
         res.status(200).json(user);
     }   
     catch(error){
-        console.error('Error fetching customers:', error.message);
-        res.status(500).json({ message: 'Error fetching customers', error: error.message });
+        console.error('Error fetching customers:',error.message);
+        res.status(500).json({message:'Error fetching customers',error:error.message});
     }
 }
 //logout

@@ -69,7 +69,7 @@ function TrainerAppointments() {
               <tr key={appointment._id}>
                 <td>{index + 1}</td>
                 <td>{appointment.username}</td>
-                <td>{appointment.trainer.trainerName}</td>
+                <td>{appointment.trainer?.trainerName || "N/A"}</td>
                 <td>{appointment.date}</td>
                 <td>{appointment.slot}</td>
                 <td>
@@ -88,10 +88,10 @@ function TrainerAppointments() {
                 <td>
                   {appointment.status === "Pending" && (
                     <>
-                      <Button variant="success" size="sm" onClick={() => handleAction(appointment.username, "Approved")}>
+                      <Button variant="success" size="sm" onClick={() =>handleAction(appointment.username,"Approved")}>
                         Approve
                       </Button>{" "}
-                      <Button variant="danger" size="sm" onClick={() => handleAction(appointment.username, "Rejected")}>
+                      <Button variant="danger" size="sm" onClick={() =>handleAction(appointment.username,"Rejected")}>
                         Reject
                       </Button>
                     </>

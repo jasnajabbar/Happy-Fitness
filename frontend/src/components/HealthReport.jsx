@@ -6,12 +6,12 @@ import {useNavigate} from 'react-router-dom';
 
 function HeathReport() {
 
-    const navigate = useNavigate();
+    const navigate=useNavigate();
     const [formData,setFormData]=useState({username:'',healthissue:''})
     const [message,setMessage] = useState('');
 
     useEffect(() => {
-        const storedUsername = localStorage.getItem('username');
+        const storedUsername =localStorage.getItem('username');
         if (storedUsername) {
             setFormData(prevState => ({
                 ...prevState,
@@ -46,7 +46,7 @@ function HeathReport() {
         if(response.status===200){
             setMessage(response.data.message);
 
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('token',response.data.token);
             
             const userResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${formData.username}`.replace(/([^:]\/)\/+/g, "$1"),
             {headers: {
@@ -55,9 +55,9 @@ function HeathReport() {
                 withCredentials:true});
             const userGoal=userResponse.data.goal ? userResponse.data.goal.toLowerCase() : '';
 
-            if (userGoal === "weight gain") {
+            if (userGoal ==="weight gain") {
                 navigate("/weightGainExercises");
-            } else if (userGoal === "weight loss") {
+            } else if (userGoal ==="weight loss") {
                 navigate("/weightLossExercises");
             } else {
                 navigate("/weightMaintainExercises");
@@ -79,7 +79,7 @@ function HeathReport() {
         flexDirection: 'column'
     }}>
     <Form onSubmit={handleSubmit}>
-    <h3 style={{ textAlign:'center',paddingTop:'20px'}}>Health Record</h3>
+    <h3 style={{textAlign:'center',paddingTop:'20px'}}>Health Record</h3>
 
 
       <Form.Group className="mb-3" style={{marginLeft:"10px",marginRight:"10px"}}>

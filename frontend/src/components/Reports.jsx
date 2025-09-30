@@ -89,7 +89,7 @@ const WeightReport = () => {
     <div>
     <CDBContainer>
       <h3 className="mt-5">Weight Progress Report</h3>
-      <Line data={chartData} options={{ responsive: true }} />
+      <Line data={chartData} options={{responsive: true}} />
     </CDBContainer>
     <div style={{textAlign:"right", marginTop:"25px",marginRight:"30px",marginBottom:"30px"}}>
     <Button variant="outline-primary" onClick={() =>{

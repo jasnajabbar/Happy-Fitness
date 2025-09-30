@@ -14,8 +14,8 @@ exports.deleteUser=async(req,res)=>{
         }
         res.status(200).json({success:true,message:"User deleted successfully"})
     } catch (error) {
-        console.error('Error deleting user:', error.message);
-        res.status(500).json({ message: "Internal server error" });
+        console.error('Error deleting user:',error.message);
+        res.status(500).json({message:"Internal server error"});
     }
 }
 
@@ -29,6 +29,6 @@ exports.deleteTrainer=async(req,res)=>{
     res.status(200).json({success:true,message:"Trainer deleted successfully"})
     } catch (error) {
     console.error('Error deleting trainer:', error.message);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({message:"Internal server error"});
     }
 }

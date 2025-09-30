@@ -4,18 +4,22 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
 function LoginPage() {
-  const [email,setEmail] =useState('');
-  const [password,setPassword] =useState('');
-  const [usertype,setUsertype] =useState('admin'); //first option
-  const [error,setError] = useState('');
-  const navigate =useNavigate();
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const [usertype,setUsertype]=useState('admin'); //first option
+  const [error,setError]=useState('');
+  const navigate=useNavigate();
   
 
-  const handleSubmit =async(event) => {
+  const handleSubmit=async(event) => {
     event.preventDefault();
 
-    const loginData = {email,password,usertype};
-    console.log(loginData);
+    const loginData={
+      email,
+      password,
+      usertype: usertype.toLowerCase() // force lowercase before sending to backend
+    };
+      console.log(loginData);
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/login`, 
@@ -23,17 +27,17 @@ function LoginPage() {
       {
         withCredentials:true,
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type':'application/json',
       }
       });
 
-      console.log("Response from backend:", response.data);
+      console.log("Response from backend:",response.data);
 
-      if (response.data.message === "Login Successfull") {
+      if (response.data.message==="Login Successfull") {
         alert('Login Successful');
 
-        localStorage.setItem('username', response.data.username); 
-        localStorage.setItem('usertype', response.data.usertype); 
+        localStorage.setItem('username',response.data.username); 
+        localStorage.setItem('usertype',response.data.usertype); 
 
         console.log('Stored in localStorage:', {
             username: localStorage.getItem('username'),
@@ -41,11 +45,11 @@ function LoginPage() {
           });
 
           
-        const usertype = response.data.usertype;
-        console.log('Navigating to:',usertype === 'client' ? '/bmi' : `/${usertype}Dashboard`);
+        const usertype=response.data.usertype;
+        console.log('Navigating to:',usertype==='client' ? '/bmi' : `/${usertype}Dashboard`);
         
         setTimeout(() => {
-            if (usertype === 'client') {
+            if (usertype==='client') {
                 navigate('/dashboard');
             } else {
                 navigate(`/${usertype}Dashboard`);
@@ -60,10 +64,10 @@ function LoginPage() {
   return (
     <div className="login-container" style={
         {backgroundImage:`url(https://i.pinimg.com/736x/e1/c0/8b/e1c08b1e5a00a21a10da9c5c2587c430.jpg)`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: "100vh", // Ensures it covers the full screen
-            width: "100%",
+            backgroundSize:"cover",
+            backgroundPosition:"center",
+            minHeight:"100vh", // Ensures it covers the full screen
+            width:"100%",
         }}>
       <Form onSubmit={handleSubmit}>
         {error && <div className="alert alert-danger">{error}</div>}
@@ -75,7 +79,7 @@ function LoginPage() {
             type="email"
             placeholder="Enter the email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>setEmail(e.target.value)}
           />
         </Form.Group>
 
@@ -85,7 +89,7 @@ function LoginPage() {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>setPassword(e.target.value)}
           />
         </Form.Group>
 
@@ -94,11 +98,11 @@ function LoginPage() {
           <Form.Select
             id="usertype"
             value={usertype}
-            onChange={(e) => setUsertype(e.target.value)}
+            onChange={(e) =>setUsertype(e.target.value)}
           >
-            <option>Admin</option>
-            <option>Trainer</option>
-            <option>client</option>
+            <option value="admin">Admin</option>
+            <option value="trainer">Trainer</option>
+            <option value="client">Client</option>
           </Form.Select>
         </Form.Group>
 

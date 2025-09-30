@@ -18,8 +18,8 @@ function BMICalculator() {
       return;
     }
 
-    const heightInMeters = heightNum / 100;
-    const bmiValue = (weightNum / (heightInMeters * heightInMeters)).toFixed(2);
+    const heightInMeters=heightNum / 100;
+    const bmiValue=(weightNum / (heightInMeters * heightInMeters)).toFixed(2);
     setBmi(bmiValue);
 
     if (bmiValue < 18.5) {
@@ -35,25 +35,25 @@ function BMICalculator() {
 
   useEffect(() => {
     if (bmi !== null) {
-      const timer = setTimeout(() => {
+      const timer=setTimeout(() => {
         navigate('/weightlog');
       }, 3000);
-      return () => clearTimeout(timer);
+      return ()=> clearTimeout(timer);
     }
-  }, [bmi, navigate]);
+  }, [bmi,navigate]);
 
   return (
     <Container
       className="d-flex flex-column align-items-center mt-5"
       style={{
-        backgroundImage: `url(https://as1.ftcdn.net/v2/jpg/06/80/42/72/1000_F_680427242_N5ZAY1vWlP0hCHmdDS5PLNL6TJQ2tIFa.jpg)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-        width: '100%',
+        backgroundImage:`url(https://as1.ftcdn.net/v2/jpg/06/80/42/72/1000_F_680427242_N5ZAY1vWlP0hCHmdDS5PLNL6TJQ2tIFa.jpg)`,
+        backgroundSize:'cover',
+        backgroundPosition:'center',
+        minHeight:'100vh',
+        width:'100%',
       }}
     >
-      <Card style={{ width: '400px', padding: '20px' }}>
+      <Card style={{ width:'400px',padding:'20px' }}>
         <h3 className="text-center">BMI Calculator</h3>
         <Form>
           <Form.Group>
@@ -62,7 +62,7 @@ function BMICalculator() {
               type="number"
               placeholder="Enter weight"
               value={weight}
-              onChange={(e) => setWeight(e.target.value)}
+              onChange={(e) =>setWeight(e.target.value)}
             />
           </Form.Group>
 
@@ -72,7 +72,7 @@ function BMICalculator() {
               type="number"
               placeholder="Enter height"
               value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              onChange={(e) =>setHeight(e.target.value)}
             />
           </Form.Group>
 
