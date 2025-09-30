@@ -18,7 +18,6 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
   : [];
 
 //CORS configuration
- 
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -59,16 +58,5 @@ app.use((err, req, res, next) => {
   });
 });
 
-//for local
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => {
-//   console.log(` Server running locally on http://localhost:${PORT}`);
-// });
-
-//for deployment
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`Server running locally on http://localhost:${PORT}`);
-  });
-}
+// No app.listen() — Vercel handles it automatically
+module.exports = app;
