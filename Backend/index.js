@@ -8,20 +8,14 @@ const fitnessroutes = require('./src/routes/fitnessroutes');
 
 const app = express();
 
-/**
- * Allowed origins from .env
- * Example in .env:
- * ALLOWED_ORIGINS=https://happy-fitness-fe.vercel.app,http://localhost:5173
- */
 const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
-  : [];
-
+ 
 //CORS configuration
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
+  origin: function (origin,callback) { //origin - fe url , cb- be response Yes → callback(null, true)
+    // No → callback(new Error("Not allowed by CORS"))
+    if (!origin || origin === allowedOrigins) {
+      callback(null, true); //allow
     } else {
       console.error('Blocked by CORS:', origin);
       callback(new Error('Not allowed by CORS'));

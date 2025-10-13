@@ -24,7 +24,7 @@ function HeathReport() {
 
     //handle input change
     const handleChange=(e)=>{
-        const {name,value} =e.target;
+        const {name,value} =e.target; //
         setFormData(prevState => ({
             ...prevState,
             [name]:value //ensure name is used

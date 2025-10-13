@@ -27,7 +27,7 @@ function AdminSignup() {
         adminData,  
         {
           withCredentials:true,
-        headers: {
+          headers: {
           'Content-Type': 'application/json',
       }
         }

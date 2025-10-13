@@ -13,6 +13,10 @@ exports.signupAdmin=async(req,res) => {
         }
         const hashedPassword = await bcrypt.hash(password,10);
 
+        //adminData (box) where we store all info for new admin
+        //adminData collects these values in one place
+        //same as username: username,
+        // email: email
         const adminData ={
             username,
             email,
@@ -28,9 +32,9 @@ exports.signupAdmin=async(req,res) => {
             adminData.updatedBy =updatedBy;
         }
         
-        // Create a new admin instance
-        const newAdmin = new Admin(adminData);
-
+        // Create mongoose document
+        const newAdmin = new Admin(adminData); 
+        //save to mongodb
         await newAdmin.save();
         res.status(201).json({message: "Admin registered successfully"});
     } catch (error) {
