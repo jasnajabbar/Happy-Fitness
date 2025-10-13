@@ -14,7 +14,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 const corsOptions = {
   origin: function (origin,callback) { //origin - fe url , cb- be response Yes → callback(null, true)
     // No → callback(new Error("Not allowed by CORS"))
-    if (!origin || origin === allowedOrigins) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true); //allow
     } else {
       console.error('Blocked by CORS:', origin);
@@ -22,6 +22,11 @@ const corsOptions = {
     }
   },
   credentials: true,
+  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'], //options OPTIONS is an HTTP method, just like GET or POST.
+  // But it is not used to get or send data.
+  // Its main job is to ask the server “hey, is it OK if I send this request?”
+  // Think of it like asking permission first before doing something.
+  allowedHeaders: ['Content-Type','Authorization']
 };
 
 //Apply CORS before all routes/middleware
