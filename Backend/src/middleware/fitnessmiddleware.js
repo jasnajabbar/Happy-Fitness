@@ -12,6 +12,7 @@ const authUser=(req,res,next)=>{
     try {
         const verified=jwt.verify(token,process.env.SECRET_KEY)//valid user info will get in verified
         req.user=verified; 
+        
         next();
     } catch (error) {
         res.status(403).json({message:'Invalid Token'})

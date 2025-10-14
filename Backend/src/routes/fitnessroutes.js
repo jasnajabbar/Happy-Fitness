@@ -8,6 +8,7 @@ const {weightLog,setGoals,updateGoals,weightProgress,weightHistory,weightAnalysi
 const router=express.Router(); // Initialize the router
 const {userFeedback}=require('../controller/feedbackcontroller')
 const {authUser}=require('../middleware/fitnessmiddleware')
+const {authAdmin}=require('../middleware/adminMiddleware')
 const {userReport,getUserReport}=require('../controller/healthReportController')
 const {getAllTrainers}=require('../controller/trainerController');
 const {bookAppointment,getAppointmentByUsername,getAllAppointments,updateAppointmentStatus}=require("../controller/appointmentcontroller");
@@ -17,11 +18,11 @@ router.post('/signup',createUser);//
 router.post('/login',loginUser);//
 router.get('/user/:username',authUser,getUser); //
 router.get('/logout',logoutUser);//
-router.post('/admin/signup',signupAdmin);//
+router.post('/admin/signup',authAdmin,signupAdmin);//
 
 //admin
-router.post('/admin/addtrainer',authUser,addTrainer);//
-router.post('/admin/adduser',authUser,addUser);//
+router.post('/admin/addtrainer',authAdmin,addTrainer);//
+router.post('/admin/adduser',authAdmin,addUser);//
 
 //update
 router.put('/user/:username',authUser,updateUser) //

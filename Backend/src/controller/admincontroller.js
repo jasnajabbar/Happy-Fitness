@@ -6,11 +6,15 @@ const  Admin=require('../model/adminmodel')
 
 exports.signupAdmin=async(req,res) => {
     try {
-        const {username,email,password,usertype,createdBy,updatedBy} = req.body;
+        const {username,email,password,usertype,createdBy,updatedBy,passkey} = req.body;
 
-        if (!username || !email || !password) {
+        if (!username || !email || !password || !passkey) {
             return res.status(400).json({ error:"Missing required fields"});
         }
+        if (passKey !== process.env.ADMIN_PASS_KEY) {
+            return res.status(403).json({ error: "Invalid Admin Pass Key" });
+        }
+
         const hashedPassword = await bcrypt.hash(password,10);
 
         //adminData (box) where we store all info for new admin
@@ -76,7 +80,7 @@ exports.addTrainer=async(req,res)=>{
         })
         await newTrainer.save();
         const token=jwt.sign(
-            {id:newTrainer._id,username:newTrainer.username},process.env.SECRET_KEY
+            {id:newTrainer._id,username:newTrainer.username},process.env.SECRET_KEY//,{ expiresIn: '1d' } expiry
         )
         res.cookie('token',token,{httpOnly:true});
         res.json({message:'Trainer Created Successfully',token})

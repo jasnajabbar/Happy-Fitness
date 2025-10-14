@@ -42,10 +42,12 @@ function AdminPanel() {
   //Handle form submission for adding a trainer
   const handleAddTrainer =async(event) => {
     event.preventDefault();
+
     const token = localStorage.getItem('token');
-
-
-    console.log("Trainer Data being sent:",trainerData);
+    if (!token) {
+      setError('Admin token missing. Please login again.');
+      return;
+    }
 
     try {
       const response =await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/addtrainer`.replace(/([^:]\/)\/+/g, "$1"),trainerData, {
@@ -53,12 +55,10 @@ function AdminPanel() {
         headers: {
           'Content-Type': 'application/json',
            Authorization: `Bearer ${token}`
-      }
+      },
       });
 
-      console.log("Server Response:", response);
-
-      if (response.status===201) {
+      if (response.status===201|| response.status === 200) {
         setSuccess(response.data.message);
         setTrainerData({trainername:'',username:'',email:'',password:'',assignedClient:'',usertype:'trainer'});
       }
@@ -72,9 +72,11 @@ function AdminPanel() {
   const handleAddClient = async(event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
-      
-    console.log("Client Data being sent:",clientData);
-
+    if (!token) {
+      setError('Admin token missing. Please login again.');
+      return;
+    }
+    
     try {
         const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,clientData,{
         withCredentials:true,

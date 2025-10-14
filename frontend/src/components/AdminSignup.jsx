@@ -26,10 +26,10 @@ function AdminSignup() {
         `${import.meta.env.VITE_SERVER_URL}/myfitness/admin/signup`,
         adminData,  
         {
-          withCredentials:true,
           headers: {
-          'Content-Type': 'application/json',
-      }}
+          'Content-Type': 'application/json'},
+          withCredentials:true
+        }
       );
 
       if (response.status ===201) {
@@ -41,16 +41,15 @@ function AdminSignup() {
 
         setTimeout(() => {
             navigate('/AdminDashboard');
-          }, 2000);
+          }, 1000);
       }
     } catch (error) {
         if (error.response?.status ===400) {
-            setMessage(error.response.data.error || 'Username already exists. Choose a different one.');
-            setIsError(true);
+            setMessage(error.response.data.error || 'Username already exists.');
           } else {
             setMessage('An error occurred during signup.');
-            setIsError(true);
           }
+          setIsError(true);
     }
   };
 
@@ -91,6 +90,16 @@ function AdminSignup() {
       <Form.Group className="mb-3" style={{marginLeft: '10px',marginRight:'10px'}}>
         <Form.Label>Usertype</Form.Label>
         <Form.Control placeholder="Admin" disabled />
+      </Form.Group>
+
+      <Form.Group className="mb-3"  style={{marginLeft: '10px',marginRight:'10px'}}>
+        <Form.Label>Admin Pass Key</Form.Label>
+         <Form.Control
+            type="password"
+            placeholder="Enter admin pass key"
+            value={adminData.passKey || ''}
+            onChange={(e) => setAdminData({ ...adminData, passKey: e.target.value })}
+          />
       </Form.Group>
 
       <div>
