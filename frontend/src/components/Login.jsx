@@ -38,10 +38,12 @@ function LoginPage() {
 
         localStorage.setItem('username',response.data.username); 
         localStorage.setItem('usertype',response.data.usertype); 
+        localStorage.setItem('token', response.data.token); 
 
         console.log('Stored in localStorage:', {
             username: localStorage.getItem('username'),
             usertype: localStorage.getItem('usertype'),
+            token: localStorage.getItem('token'), 
           });
 
           

@@ -50,6 +50,7 @@ function AdminPanel() {
         withCredentials:true,
         headers: {
           'Content-Type': 'application/json',
+           Authorization: `Bearer ${token}`
       }
       });
 
@@ -72,10 +73,12 @@ function AdminPanel() {
     console.log("Client Data being sent:",clientData);
 
     try {
-      const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,clientData,{
+      const token = localStorage.getItem('token');
+        const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,clientData,{
         withCredentials:true,
         headers: {
           'Content-Type': 'application/json',
+           Authorization: `Bearer ${token}`
       }
       });
 
