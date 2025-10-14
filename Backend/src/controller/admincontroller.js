@@ -23,6 +23,7 @@ exports.signupAdmin=async(req,res) => {
             password:hashedPassword,
             usertype: usertype||"admin"
         };
+    
         if (usertype ==='admin') {
             if (!createdBy || !updatedBy) {
                 return res.status(400).json({ error:'Both createdBy and updatedBy are required for admins'});
@@ -36,7 +37,16 @@ exports.signupAdmin=async(req,res) => {
         const newAdmin = new Admin(adminData); 
         //save to mongodb
         await newAdmin.save();
-        res.status(201).json({message: "Admin registered successfully"});
+
+           // Generate JWT token
+           const token = jwt.sign(
+            { id: newAdmin._id, username: newAdmin.username, usertype: newAdmin.usertype },
+            process.env.SECRET_KEY,
+            { expiresIn: '1d' }
+        );
+        res.status(201).json({message: "Admin registered successfully",token,              // <-- return token
+            username: newAdmin.username,
+            usertype: newAdmin.usertype});
     } catch (error) {
         res.status(500).json({error: "Internal Server Error" ,message:error.message});
     }

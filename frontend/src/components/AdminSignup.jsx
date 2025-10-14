@@ -29,11 +29,13 @@ function AdminSignup() {
           withCredentials:true,
           headers: {
           'Content-Type': 'application/json',
-      }
-        }
+      }}
       );
 
       if (response.status ===201) {
+        const token = response.data.token; // get token from backend
+        localStorage.setItem('token', token); 
+
         setMessage('Admin registered successfully!');
         setIsError(false);
 
