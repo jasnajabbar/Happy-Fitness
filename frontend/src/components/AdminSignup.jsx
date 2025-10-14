@@ -10,7 +10,8 @@ function AdminSignup() {
     password:'',
     usertype:'admin',
     createdBy:'system',
-    updatedBy:'system'
+    updatedBy:'system',
+    passKey:''
   });
 
   const [message,setMessage] =useState('');
