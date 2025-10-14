@@ -57,6 +57,7 @@ function LoginPage() {
         }, 500);
     }
     } catch (err) {
+        console.error(err);
         setError('User not found',err);    
     }
   };
