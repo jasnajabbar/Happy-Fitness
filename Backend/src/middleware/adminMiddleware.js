@@ -1,4 +1,4 @@
-const {authUser} =require('./authUser'); // import general middleware
+const {authUser} =require('../middleware/fitnessmiddleware'); // import general middleware
 
 const authAdmin =(req,res, next) => {
   authUser(req,res,() => { // first verify token
