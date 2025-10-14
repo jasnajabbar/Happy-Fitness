@@ -42,6 +42,8 @@ function AdminPanel() {
   //Handle form submission for adding a trainer
   const handleAddTrainer =async(event) => {
     event.preventDefault();
+    const token = localStorage.getItem('token');
+
 
     console.log("Trainer Data being sent:",trainerData);
 
@@ -69,11 +71,11 @@ function AdminPanel() {
   // Handle form submission for adding a client
   const handleAddClient = async(event) => {
     event.preventDefault();
-
+    const token = localStorage.getItem('token');
+      
     console.log("Client Data being sent:",clientData);
 
     try {
-      const token = localStorage.getItem('token');
         const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,clientData,{
         withCredentials:true,
         headers: {
