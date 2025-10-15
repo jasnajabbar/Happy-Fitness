@@ -18,7 +18,7 @@ router.post('/signup',createUser);//
 router.post('/login',loginUser);//
 router.get('/user/:username',authUser,getUser); //
 router.get('/logout',logoutUser);//
-router.post('/admin/signup',authAdmin,signupAdmin);//
+router.post('/admin/signup',signupAdmin);//
 
 //admin
 router.post('/admin/addtrainer',authAdmin,addTrainer);//
