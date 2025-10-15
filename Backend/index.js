@@ -8,7 +8,7 @@ const fitnessroutes = require('./src/routes/fitnessroutes');
 
 const app = express();
 
-const allowedOrigins =process.env.ALLOWED_ORIGINS;
+const allowedOrigin =process.env.ALLOWED_ORIGINS;
  
 //CORS configuration for multiple url
 // const corsOptions = {
