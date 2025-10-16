@@ -11,7 +11,7 @@ function AdminSignup() {
     usertype:'admin',
     createdBy:'system',
     updatedBy:'system',
-    passKey:''
+    passkey:''
   });
 
   const [message,setMessage] =useState('');
@@ -98,8 +98,8 @@ function AdminSignup() {
          <Form.Control
             type="password"
             placeholder="Enter admin pass key"
-            value={adminData.passKey || ''}
-            onChange={(e) => setAdminData({ ...adminData, passKey: e.target.value })}
+            value={adminData.passkey || ''}
+            onChange={(e) => setAdminData({ ...adminData, passkey: e.target.value })}
           />
       </Form.Group>
 
