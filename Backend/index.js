@@ -14,7 +14,6 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',').map(eachUrl =>each
 const corsOptions = {
   origin: function (origin,callback) { //origin - fe url , cb- be response Yes → callback(null, true)
     // No → callback(new Error("Not allowed by CORS"))
-      console.log('Incoming origin:', origin);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true); //allow
     } else {
@@ -30,6 +29,8 @@ const corsOptions = {
   allowedHeaders: ['Content-Type','Authorization']
 };
 app.use(cors(corsOptions));
+// Explicitly handle OPTIONS for all routes
+app.options('*', cors(corsOptions));
 
 //Apply CORS before all routes/middleware
 //single url
