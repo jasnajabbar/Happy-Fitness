@@ -159,7 +159,7 @@ function BookAppointment() {
           <Form.Label>Choose Slot</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Time: E.g., 10:00 AM - 11:00 AM"
+            placeholder="E.g., 10:00 AM"
             value={slot}
             onChange={(e) => setSlot(e.target.value)}
             required

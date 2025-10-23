@@ -18,11 +18,18 @@ function ReportPage() {
     }
 
     try {
+      const token = localStorage.getItem("token"); // Store token on login
       const response = await axios.get(
         `${import.meta.env.VITE_SERVER_URL}/myfitness/healthreport/${storedUsername}`.replace(
           /([^:]\/)\/+/g,
           "$1"
-        )
+        ), 
+        {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+          withCredentials: true 
+        }
       );
 
       setUserData(response.data); // This now contains goal, currentWeight, BMI
