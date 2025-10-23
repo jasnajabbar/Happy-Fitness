@@ -92,10 +92,25 @@ exports.addTrainer=async(req,res)=>{
     exports.addUser=async(req,res)=>{
         try {
             const {firstname,username,usertype,email,password,gender,age,height,weight,goal,startweight,assignedTrainer}=req.body;
+           
             const allowedUserTpe=['client'];
             if(!allowedUserTpe.includes(usertype)){
                 return res.status(400).json({error:"Invalid usert type"});
             }
+              // Check if assigned trainer exists
+             if (assignedTrainer) {
+                 const trainerExists = await Trainer.findOne({username:assignedTrainer});
+             if (!trainerExists) {
+                 return res.status(400).json({error:"Assigned trainer not found"});
+            }
+     }
+
+            // Check for duplicate username/email
+            const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+             if (existingUser) {
+                return res.status(400).json({ error: "Username or email already exists" });
+            }
+
             const hashpassword=await bcrypt.hash(password,10);
             const newUser=new User({
                 firstname,
@@ -113,11 +128,13 @@ exports.addTrainer=async(req,res)=>{
             })
             await newUser.save();
             const token=jwt.sign(
-                {id:newUser._id,username:newUser.username},process.env.SECRET_KEY
+                {id:newUser._id,username:newUser.username},process.env.SECRET_KEY,{ expiresIn: '1d'}
             )
             res.cookie('token',token,{httpOnly:true});
             res.status(200).json({message:'User Created Succesfully',token});
         } catch (error) {
             console.error('Error connecting to Mongoose: ', error.message);
+            res.status(500).json({error:'Internal Server Error', message: error.message});
+
         }
     }
