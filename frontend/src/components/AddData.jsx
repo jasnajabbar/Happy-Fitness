@@ -78,7 +78,8 @@ function AdminPanel() {
     }
     
     try {
-        const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,clientData,{
+        const response=await axios.post(`${import.meta.env.VITE_SERVER_URL}/myfitness/admin/adduser`,
+         { ...clientData, usertype: 'client' },{ // explicitly add usertype
         withCredentials:true,
         headers: {
           'Content-Type': 'application/json',
