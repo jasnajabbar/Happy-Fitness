@@ -21,8 +21,8 @@ router.get('/logout',logoutUser);//
 router.post('/admin/signup',signupAdmin);//
 
 //admin
-router.post('/admin/addtrainer',authAdmin,addTrainer);//
-router.post('/admin/adduser',authAdmin,addUser);//
+router.post('/admin/addtrainer',addTrainer);//
+router.post('/admin/adduser',addUser);//
 
 //update
 router.put('/user/:username',authUser,updateUser) //

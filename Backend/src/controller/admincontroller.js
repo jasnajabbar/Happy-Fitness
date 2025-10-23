@@ -93,6 +93,11 @@ exports.addTrainer=async(req,res)=>{
         try {
             const {firstname,username,usertype,email,password,gender,age,height,weight,goal,startweight,assignedTrainer}=req.body;
            
+              // Validate required fields
+            if (!firstname || !username || !usertype || !email || !password || !gender || !height || !weight || !goal || !startweight) {
+                return res.status(400).json({ error: 'All required fields must be provided' });
+            }
+
             const allowedUserTpe=['client'];
             if(!allowedUserTpe.includes(usertype)){
                 return res.status(400).json({error:"Invalid usert type"});
@@ -120,10 +125,10 @@ exports.addTrainer=async(req,res)=>{
                 password:hashpassword,
                 gender,
                 age,
-                height,
-                weight,
+                height:Number(height),
+                weight:Number(weight),
                 goal,
-                startweight,
+                startweight:Number(startweight),
                 assignedTrainer
             })
             await newUser.save();
