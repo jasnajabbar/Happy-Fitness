@@ -62,6 +62,7 @@
 
 const Report = require('../model/reportsmodel');
 const { User } = require('../model/usermodel');
+const jwt = require('jsonwebtoken');
 
 // Create a health report
 const userReport = async(req,res) => {
@@ -84,8 +85,11 @@ const userReport = async(req,res) => {
 
         await newReport.save();
 
+        const token = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: '1d' });
+
         res.status(200).json({
-            message:"Health report submitted successfully"
+            message:"Health report submitted successfully",
+            token
         });
     } catch (error) {
         console.error("Error adding health report:",error);
