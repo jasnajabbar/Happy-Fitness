@@ -45,12 +45,9 @@ function HeathReport() {
 
         if(response.status===200){
             setMessage(response.data.message);
-
-            localStorage.setItem('token',response.data.token);
             
             const userResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${formData.username}`.replace(/([^:]\/)\/+/g, "$1"),
             {headers: {
-                Authorization: `Bearer ${response.data.token}`, // Sending token with request
             },
                 withCredentials:true});
             const userGoal=userResponse.data.goal ? userResponse.data.goal.toLowerCase() : '';
