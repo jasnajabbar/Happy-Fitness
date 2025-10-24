@@ -63,7 +63,7 @@ const WeightReport = () => {
             });
 
             const weights = weightEntries.map(entry => 
-              Number(entry.progress) || 0
+              Number(entry.weight) || 0
             );
 
             setChartData(previousData=>({
