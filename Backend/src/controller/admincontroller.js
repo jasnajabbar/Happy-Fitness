@@ -9,10 +9,11 @@ exports.signupAdmin=async(req,res) => {
         const {username,email,password,usertype,createdBy,updatedBy,passkey} = req.body;
 
         if (!username || !email || !password || !passkey) {
-            return res.status(400).json({ error:"Missing required fields"});
+            return res.status(400).json({error:"Missing required fields"});
         }
+        console.log("Received Passkey:", passkey);
         if (passkey !== process.env.ADMIN_PASS_KEY) {
-            return res.status(403).json({ error: "Invalid Admin Pass Key" });
+            return res.status(403).json({error: "Invalid Admin Pass Key"});
         }
 
         const hashedPassword = await bcrypt.hash(password,10);

@@ -37,7 +37,7 @@ function BMICalculator() {
     if (bmi !== null) {
       const timer=setTimeout(() => {
         navigate('/weightlog');
-      }, 3000);
+      }, 1000);
       return ()=> clearTimeout(timer);
     }
   }, [bmi,navigate]);
@@ -92,7 +92,6 @@ function BMICalculator() {
           <div className="text-center mt-4">
             <h4>Your BMI: {bmi}</h4>
             <h5 className={category === 'Obese' ? 'text-danger' : 'text-success'}>{category}</h5>
-            <p className="text-muted">Redirecting in 3 seconds...</p>
           </div>
         )}
       </Card>
