@@ -303,7 +303,7 @@ function AdminPanel() {
               <option value="">Select Goal</option>
               <option value="Weight Loss">weight gain</option>
               <option value="Weight Gain">weight loss</option>
-              <option value="Muscle Building">maintain weight</option>
+              <option value="Maintain Weight">maintain weight</option>
             </Form.Select>
           </Form.Group>
 

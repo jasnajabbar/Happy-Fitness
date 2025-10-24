@@ -45,9 +45,10 @@ const WeightReport = () => {
             }
 
             const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/weighthistory/${username}`);
-            const weightEntries=response.data.data;
-
+           
+            const weightEntries=response.data;
             console.log("API Response:", weightEntries);
+            
             if (!Array.isArray(weightEntries)) {
                 console.error("Expected an array but received:", weightEntries);
                 return;
@@ -60,10 +61,10 @@ const WeightReport = () => {
               console.log("Processing Entry:", entry);
               return entry.date ? new Date(entry.date).toLocaleDateString() : "Invalid Date";
             });
-            const weights = weightEntries.map(entry => {
-              console.log("Processing Weight:", entry.weight);
-              return entry.weight || 0;
-            });
+
+            const weights = weightEntries.map(entry => 
+              Number(entry.weight) || 0
+            );
 
             setChartData(previousData=>({
                 ...previousData,
