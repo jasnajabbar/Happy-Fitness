@@ -46,9 +46,9 @@ const WeightReport = () => {
 
             const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/weighthistory/${username}`);
            
-            const weightEntries=response.data;
+            const weightEntries=response.data.data;
             console.log("API Response:", weightEntries);
-            
+
             if (!Array.isArray(weightEntries)) {
                 console.error("Expected an array but received:", weightEntries);
                 return;
