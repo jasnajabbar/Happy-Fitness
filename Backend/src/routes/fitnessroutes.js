@@ -50,7 +50,7 @@ router.get("/appointments/:username", getAppointmentByUsername);
 router.get("/getappointments", getAllAppointments);
 router.put("/updateappointment", updateAppointmentStatus);
 router.post('/healthreport',userReport);
-router.get("/healthreport/:username",authUser, getUserReport);
+router.get("/healthreport/:username", getUserReport);
 router.get('/gettrainers', getAllTrainers);
 
 router.post('/feedback',userFeedback)
