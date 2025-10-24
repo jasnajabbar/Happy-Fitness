@@ -12,7 +12,7 @@ exports.signupAdmin=async(req,res) => {
             return res.status(400).json({error:"Missing required fields"});
         }
         console.log("Received Passkey:", passkey);
-        if (passkey !== process.env.ADMIN_PASS_KEY) {
+        if (passkey.trim() !== process.env.ADMIN_PASS_KEY.trim()) {
             return res.status(403).json({error: "Invalid Admin Pass Key"});
         }
 
