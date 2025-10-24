@@ -69,7 +69,7 @@ function TrainerAppointments() {
               <tr key={appointment._id}>
                 <td>{index + 1}</td>
                 <td>{appointment.username}</td>
-                <td>{appointment.trainer?.trainerName || "N/A"}</td>
+                <td>{appointment.trainerName || "N/A"}</td>
                 <td>{appointment.date}</td>
                 <td>{appointment.slot}</td>
                 <td>
