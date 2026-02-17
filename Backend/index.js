@@ -8,44 +8,28 @@ const fitnessroutes = require('./src/routes/fitnessroutes');
 
 const app = express();
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',').map(eachUrl =>eachUrl.trim().replace(/\/$/, ''));
- 
 // CORS configuration for multiple url
-const corsOptions ={
-  origin: function (origin,callback) { //origin - fe url , cb- be response Yes → callback(null, true)
-    // No → callback(new Error("Not allowed by CORS"))
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); //allow
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',')
+  .map(o => o.trim().replace(/\/$/, ''));
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+
+    const cleanOrigin = origin.replace(/\/$/, '');
+
+    if (allowedOrigins.includes(cleanOrigin)) {
+      callback(null, true);
     } else {
-      console.error('Blocked by CORS:', origin);
-      callback(new Error('Not allowed by CORS'));
+      console.log("Blocked by CORS:", origin);
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,
-  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'], //options OPTIONS is an HTTP method, just like GET or POST.
-  // But it is not used to get or send data.
-  // Its main job is to ask the server “hey, is it OK if I send this request?”
-  // Think of it like asking permission first before doing something.
-  allowedHeaders: ['Content-Type','Authorization']
+  credentials: true
 };
-app.use(cors(corsOptions));
-// Explicitly handle OPTIONS for all routes
-app.options('*', cors(corsOptions));
 
-//Apply CORS before all routes/middleware
-//single url
-// app.use(cors({
-//   origin: allowedOrigin,
-//   credentials: true,
-//   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-//   allowedHeaders: ['Content-Type','Authorization']
-// }));
-// app.options('*', cors({
-//   origin: allowedOrigin,
-//   credentials: true,
-//   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-//   allowedHeaders: ['Content-Type','Authorization']
-// }));
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 //middleware
 app.use(bodyParser.json());
@@ -76,5 +60,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// No app.listen() — Vercel handles it automatically
 module.exports = app;
