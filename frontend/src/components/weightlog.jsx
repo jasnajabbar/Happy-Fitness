@@ -31,10 +31,9 @@ function DailyWeight(){
             }
 
         try {
-          // 
-          //${import.meta.env.VITE_SERVER_URL}/myfitness/weightlog,.replace(/([^:]\/)\/+/g, "$1")
             const response=await axios.post(
-              "https://happy-fitness-backend.onrender.com/myfitness/weightlog",{
+              `${import.meta.env.VITE_SERVER_URL.replace(/\/+$/, "")}/myfitness/weightlog`,
+            {
                 username:username.trim(),
                 weight:parseFloat(weight),
             },
