@@ -53,13 +53,13 @@ function HeathReport() {
         if(response.status===200){
             setMessage(response.data.message); 
 
-            const userResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${formData.username}`.replace(/([^:]\/)\/+/g, "$1"),
+            const userResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/healthreport/${formData.username}`.replace(/([^:]\/)\/+/g, "$1"),
             {headers: {
                  Authorization: `Bearer ${token}`
             },
                 withCredentials:true});
             const userGoal = userResponse.data.goal?.toLowerCase();
-            
+
             if (!userGoal) {
                 console.log("Goal not found in response:", userResponse.data);
                 setMessage("User goal not found. Please try again.");
