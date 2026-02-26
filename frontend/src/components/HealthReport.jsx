@@ -58,7 +58,8 @@ function HeathReport() {
                  Authorization: `Bearer ${token}`
             },
                 withCredentials:true});
-            const userGoal=userResponse?.data?.data?.goal?.toLowerCase();
+            const userGoal = userResponse.data.goal?.toLowerCase();
+            
             if (!userGoal) {
                 console.log("Goal not found in response:", userResponse.data);
                 setMessage("User goal not found. Please try again.");
