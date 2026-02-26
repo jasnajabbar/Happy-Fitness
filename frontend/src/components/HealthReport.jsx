@@ -55,15 +55,14 @@ function HeathReport() {
 
             const userResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/myfitness/user/${formData.username}`.replace(/([^:]\/)\/+/g, "$1"),
             {headers: {
-                      Authorization: `Bearer ${token}`
-
+                 Authorization: `Bearer ${token}`
             },
                 withCredentials:true});
-            const userGoal=userResponse.data.goal ? userResponse.data.goal.toLowerCase() : '';
+            const userGoal=userResponse.data.data.goal?.toLowerCase() || "";
 
-            if (userGoal ==="weight gain") {
+            if (userGoal.includes("gain")) {
                 navigate("/weightGainExercises");
-            } else if (userGoal ==="weight loss") {
+            } else if (userGoal.includes("loss")) {
                 navigate("/weightLossExercises");
             } else {
                 navigate("/weightMaintainExercises");
