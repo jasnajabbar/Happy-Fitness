@@ -20,13 +20,20 @@ Used localStorage for efficient session handling
 
 📸 Demo / Screenshots
 <img width="1889" height="871" alt="image" src="https://github.com/user-attachments/assets/6c1a0e98-f3fa-4805-bc83-bf29780943a6" />
-<img width="1358" height="779" alt="image" src="https://github.com/user-attachments/assets/84c627cc-103d-47ab-ac64-066392f856b4" />
+<img width="1704" height="771" alt="image" src="https://github.com/user-attachments/assets/97343173-a018-433a-bfc8-2ed4804a1f47" />
 
 
 
 ⚡ Installation
-npm install  
-npm run dev  
 
-🔗 GitHub
-(Add your repository link here)
+# Frontend (Vite)
+cd frontend
+npm install
+npm run dev
+
+# Backend
+cd Backend
+npm install
+npm start
+
+
